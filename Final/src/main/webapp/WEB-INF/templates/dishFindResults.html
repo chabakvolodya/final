@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+
+<head th:replace="index.html::head (title='Search Results')">
+    <title></title>
+</head>
+
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" th:replace="index.html::navigation"></nav>
+
+<!-- Page Content -->
+<div class="container">
+    <div class="row">
+        <div class="col-lg-4">
+            <p class="h3">Search Result</p>
+
+            <table class="table-condensed h4">
+                <tr th:each="dish : ${dishes}">
+                    <td>
+                        <a href="#" th:text="${#strings.capitalize(dish.getName())}"
+                           th:href="@{/dish(id = ${dish.getId()})}">link to dish</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+<!-- /.container -->
+
+<div th:replace="index.html::generalScripts"></div>
+
+</body>
+
+</html>

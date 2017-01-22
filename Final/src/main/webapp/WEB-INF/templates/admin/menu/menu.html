@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+
+<head th:replace="index.html::head (title='Admin - Menus')">
+    <title></title>
+</head>
+
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation"
+     th:replace="/admin/adminNavBar.html::navigation"></nav>
+
+<div class="container">
+    <!--Content-->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading panel-heading-custom h3">
+                    Menu List
+                </div>
+                <div class="panel-body">
+                    <table class="table table-default table-hover h4">
+                        <thead class="thead-default">
+                        <tr>
+                            <th>Menu Name</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody class="tbody-default">
+                        <tr th:each="menu : ${menuList}">
+                            <td th:text="${#strings.capitalize(menu.getDescription())}"><b>Menu Name</b></td>
+                            <td>
+                                <span><a href="#" class="btn btn-primary custom" role="button"
+                                         aria-pressed="true"
+                                         th:href="@{/admin/menu/edit(id= ${menu.getId()})}">Edit</a></span></span>
+                                <span>  </span>
+                                <span><a href="#" class="btn btn-danger custom" role="button" aria-pressed="true"
+                                         th:href="@{/admin/menu/remove(id= ${menu.getId()})}">Remove</a></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <form class="form-inline" action="#" method="post" th:action="@{/admin/menu/create}"
+                                      th:object="${newMenu}">
+                                    <button type="submit" class="btn btn-success">Create New</button>
+                                    <div class="form-group">
+                                        <input type="text" th:field="*{description}" class="form-control" id="newMenuName"
+                                               placeholder="Menu name...">
+                                    </div>
+                                    <div class="alert alert-danger" th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Name error</div>
+                                </form>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div th:replace="index.html::generalScripts"></div>
+
+</body>
+</html>

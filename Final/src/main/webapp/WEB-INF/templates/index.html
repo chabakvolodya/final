@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:fragment="head (title)">
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title th:text="*{title != null}? *{title} : 'Welcome'">Welcome</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="../../resources/theme1/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../../resources/theme1/css/logo-nav.css" th:href="@{/css/logo-nav.css}">
+
+    <!--Datepicker-->
+    <link rel="stylesheet" th:href="@{/css/datepicker/bootstrap-datetimepicker.min.css}">
+
+    <style>
+        .panel-primary > .panel-heading-custom {
+            background: rgb(156, 156, 156);
+            border: rgb(128, 128, 128);
+            color: #fff;
+        }
+
+        .panel-primary {
+            border-color: #9c9c9c;
+        }
+
+        .table-borderless tbody tr td, .table-borderless tbody tr th, .table-borderless thead tr th {
+            border: none;
+        }
+    </style>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" th:fragment="navigation">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" th:href="@{/index}">
+                <img src="../../resources/theme1/img/logo.gif" th:src="@{/img/logo.gif}" alt="" height="60" width="150">
+            </a>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav h3">
+                <li>
+                    <a href="/index" th:href="@{/index}">Main</a>
+                </li>
+                <li>
+                    <a href="restaurantScheme.html" th:href="@{/scheme}">Scheme</a>
+                </li>
+                <li>
+                    <a th:href="@{/team}">Team</a>
+                </li>
+                <li>
+                    <a th:href="@{/contacts}">Contacts</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</nav>
+
+<!-- Page Content -->
+<div class="container">
+    <!--Welcome-->
+    <div class="row">
+        <div class="col-lg-8 h2">
+            <p>Welcome to "Fork, Knife & Glass" restaurant</p>
+            <h4>The best restaurant ever with excellent web site.</h4>
+        </div>
+        <div class="col-lg-offset-8 bottom-right">
+            <p class="h3">Contacts</p>
+            <table class="table">
+                <tr>
+                    <td>
+                        <b>Address:</b> Spasska str, 12
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <b>Phone: </b> +123456789
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <!--Find by name-->
+    <div class="row">
+        <div class="col-lg-12">
+            <form class="form-inline" action="#" th:action="@{/dish/findByName}" th:object="${dish}" method="post">
+                <p><input class="form-control" id="focusedInput" type="text"
+                          placeholder="Type dish name..." th:field="*{name}"/>
+                    <span class="glyphicon glyphicon-search"/></p>
+                <p><input class="btn btn-default" type="submit" value="Search"/>
+                    <input class="btn btn-default" type="reset" value="Reset"/></p>
+            </form>
+        </div>
+    </div>
+    <!--List menus-->
+    <div class="row">
+        <div class="col-lg-6">
+            <h3>Our Menus:</h3>
+            <table class="table table-hover" th:each="menu : ${menus}">
+                <thead class="thead-default">
+                <tr>
+                    <th colspan="2" th:text="${#strings.capitalize(menu.getDescription())}">
+                        Menu Name
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="dish : ${menu.getDishes()}">
+                    <td class="col-lg-3">
+                        <a href="#" th:text="${#strings.capitalize(dish.getName())}"
+                           th:href="@{/dish(id = ${dish.getId()})}">link to dish</a>
+                    </td>
+                    <td class="col-lg-3"
+                        th:text="${dish.getPrice() +
+                        ' (' + dish.getWeight() + 'g)'}">
+                        weight, price
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+<!-- /.container -->
+
+<div th:fragment="generalScripts">
+    <!-- jQuery -->
+    <script th:src="@{/js/jquery.js}"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+</div>
+
+</body>
+
+</html>

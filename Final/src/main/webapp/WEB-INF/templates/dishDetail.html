@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+
+<head th:replace="index.html::head (title='Dish Detail')">
+    <title></title>
+</head>
+
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" th:replace="index.html::navigation"></nav>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12 h2 ">
+            <div class="panel panel-primary">
+                <div class="panel-heading panel-heading-custom">
+                    <p th:text="${#strings.capitalize(dish.getName())} + ' - ' +
+             ${dish.getPrice().getAmount()} +' ' + ${dish.getPrice().getCurrencyUnit()} +
+             ' (' + ${dish.getWeight() + 'g)'}">Description</p>
+                </div>
+                <div class="panel-body">
+                    <p>Ingredients:
+                <span class="h3" th:each="ingr,iterStat : ${dish.getIngredients()}"
+                      th:text="!${iterStat.last} ? ${ingr.getName()} + ', ' : ${ingr.getName()}">
+                </span>
+                    </p>
+                    <img class="media-object" th:src="'dish/'+ ${dish.getId()}+'/photo'"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div th:replace="index.html::generalScripts"></div>
+
+</body>
+</html>

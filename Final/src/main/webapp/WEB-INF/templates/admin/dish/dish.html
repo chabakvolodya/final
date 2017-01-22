@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+
+<head th:replace="index.html::head (title='Admin - Menus')">
+    <title></title>
+</head>
+
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation"
+     th:replace="/admin/adminNavBar.html::navigation"></nav>
+
+<div class="container">
+    <!--Content-->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading panel-heading-custom h3">
+                    Dish List
+                </div>
+                <div class="panel-body">
+                    <form th:action="@{/admin/dish/create}" method="get">
+                        <button type="submit" class="btn btn-success">Create New</button>
+                    </form>
+                    </br>
+                    <table class="table table-default table-hover h4">
+                        <thead class="thead-default">
+                        <tr>
+                            <th>Dish Name</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody class="tbody-default">
+                        <tr th:each="dish : ${dishList}">
+                            <td th:text="${#strings.capitalize(dish.name)}"><b>Dish Name</b></td>
+                            <td>
+                                <span><a href="#" class="btn btn-primary custom" role="button"
+                                         aria-pressed="true"
+                                         th:href="@{/admin/dish/edit(id=${dish.id})}">Edit</a></span></span>
+                                <span>  </span>
+                                <span><a href="#" class="btn btn-danger custom" role="button" aria-pressed="true"
+                                         th:href="@{/admin/dish/remove(id=${dish.id})}">Remove</a></span>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div th:replace="index.html::generalScripts"></div>
+
+</body>
+</html>

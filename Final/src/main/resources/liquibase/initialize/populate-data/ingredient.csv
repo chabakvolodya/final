@@ -1,0 +1,20 @@
+id,ingredient_name,ingredient_quantity,is_deleted
+1,tomato,41,FALSE
+2,onion,31,FALSE
+3,salt,43,FALSE
+4,german sausage,64,FALSE
+5,potato,61,FALSE
+6,fish,49,FALSE
+7,chicken,25,FALSE
+8,rice,35,FALSE
+9,mineral water,95,FALSE
+10,tea,38,FALSE
+11,coffee,61,FALSE
+12,cheese,41,FALSE
+13,cabbage,65,FALSE
+14,carrot,67,FALSE
+15,lemon,15,FALSE
+16,flour,47,FALSE
+17,bread,54,FALSE
+18,egg,54,FALSE
+19,sugar,74,FALSE

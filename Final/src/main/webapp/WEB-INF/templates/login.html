@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+
+<head th:replace="index.html::head (title='Contacts')">
+    <title></title>
+</head>
+
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" th:replace="index.html::navigation"></nav>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12 h2 ">
+            <!--<form class="form-inline" action="#" th:action="@{/dish/findByName}" th:object="${dish}" method="post">-->
+                <!--<p><input class="form-control" type="text"-->
+                          <!--name="login" placeholder="Login..."/>-->
+                <!--<p><input class="form-control" type="password"-->
+                          <!--name="pass" placeholder="Password..."/>-->
+                <!--<p><input class="btn btn-default" type="submit" value="Search"/>-->
+                    <!--<input class="btn btn-default" type="reset" value="Reset"/></p>-->
+            <!--</form>-->
+
+
+            <p th:if="${loginError}">Wrong user or password</p>
+            <form th:action="@{/j_spring_security_check}" method="post">
+                <label for="j_username">Username</label>:
+                <input type="text" id="j_username" name="j_username" /> <br />
+                <label for="j_password">Password</label>:
+                <input type="password" id="j_password" name="j_password" /> <br />
+                <input type="submit" value="Log in" />
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<div th:replace="index.html::generalScripts"></div>
+
+</body>
+</html>

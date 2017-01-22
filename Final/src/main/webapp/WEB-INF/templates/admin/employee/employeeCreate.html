@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+
+<head th:replace="index.html::head (title='Admin - Employee')">
+    <title></title>
+</head>
+
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation"
+     th:replace="/admin/adminNavBar.html::navigation"></nav>
+
+<div class="container">
+    <!--Content-->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading panel-heading-custom h3">
+                    <p th:text="${'Create Employee'}">Create Employee</p>
+                </div>
+                <div class="panel-body">
+                    <!--Edit employee-->
+                    <div class="col-md-6">
+                        <form action="#" method="post" th:action="@{'/admin/employee/create'}"
+                              th:object="${employee}">
+
+                            <div th:class="${#fields.hasErrors('firstName')} ?  'form-group alert alert-danger' : 'form-group'">
+                                <label for="name">First Name:</label>
+                                <input type="text" class="form-control" id="name" th:field="*{firstName}"/>
+                                <p th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">error</p>
+                            </div>
+
+                            <div th:class="${#fields.hasErrors('lastName')} ?  'form-group alert alert-danger' : 'form-group'">
+                                <label for="surname">Last Name:</label>
+                                <input type="text" class="form-control" id="surname" th:field="*{lastName}"/>
+                                <p th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">error</p>
+                            </div>
+
+
+                            <div th:class="${#fields.hasErrors('position')} ?  'form-group alert alert-danger' : 'form-group'">
+                                <label for="position">Select Position:</label>
+                                <select class="form-control" id="position" name="position">
+                                    <option th:each="pos : ${positions}"
+                                            th:value="${pos.id +','+ pos.description}"
+                                            th:selected="${employee.position == null} ? false : ${employee.position.description.equals(pos.description)}"
+                                            th:text="${pos.description}">1
+                                    </option>
+                                </select>
+                                <p th:if="${#fields.hasErrors('position')}" th:errors="*{position}">error</p>
+                            </div>
+
+                            <div th:class="${#fields.hasErrors('birthDay')} ?  'form-group alert alert-danger' : 'form-group'">
+                                <label for="birthDay">Birthday:</label>
+                                <input type="text" class="form-control" id="birthDay" name="birthDay"
+                                       th:value="${employee.birthDay != null} ? ${#temporals.format(employee.birthDay, 'dd/MM/YYYY')} : '01/01/1900'"/>
+                                <p th:if="${#fields.hasErrors('birthDay')}" th:text="'Wrong date'">error</p>
+                            </div>
+
+                            <div th:class="${#fields.hasErrors('phoneNumber')} ?  'form-group alert alert-danger' : 'form-group'">
+                                <label for="phoneNumber">Phone:</label>
+                                <input type="text" class="form-control" id="phoneNumber" th:field="*{phoneNumber}"/>
+                                <p th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}">error</p>
+                            </div>
+
+                            <div th:class="${#fields.hasErrors('salary')} ?  'form-group alert alert-danger' : 'form-group'">
+                                <label for="salary">Salary:</label>
+                                <input type="text" class="form-control" id="salary" th:field="*{salary}"/>
+                                <p th:if="${#fields.hasErrors('salary')}" th:text="'Wrong salary - min 10'">error</p>
+                            </div>
+
+                            <input type="hidden" class="form-control" id="deleted" name="deleted" value="false"/>
+                            <!--<input type="hidden" class="form-control" id="id" name="id" th:value="*{id}"/>-->
+                            <p><input class="btn btn-success" type="submit" value="Save"/>
+                                <input class="btn btn-default" type="reset" value="Reset"/></p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="index.html::generalScripts"></div>
+
+</body>
+</html>

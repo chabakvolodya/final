@@ -1,0 +1,7 @@
+id,position_id,first_name,last_name,birth_day,phone_number,salary,is_deleted,dtype
+1,1,Ivan,Ivanov,1990-01-01,+380501111111,2000,false,Waiter
+2,1,Petr,Petrov,1990-05-05,+380502222222,2500,false,Waiter
+3,2,Julia,Roberts,1980-09-05,+380503333333,5000,false,Cook
+4,2,Jenifer,Lopes,1984-05-20,+380504444444,5000,false,Cook
+5,3,Julia,Orlova,1982-06-15,+380505555555,1500,false,Employee
+6,4,Olya,Filipieva,1986-11-20,+380506666666,15000,false,Employee

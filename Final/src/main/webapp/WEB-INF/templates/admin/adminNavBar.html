@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" th:fragment="navigation">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-default">
+            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" th:href="@{/index}">
+                <img th:src="@{/img/logo.gif}" alt="" height="60" width="150">
+            </a>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav h3">
+                <li>
+                    <a th:href="@{/admin/menu}">Menu</a>
+                </li>
+                <li>
+                    <a th:href="@{/admin/dish}">Dish</a>
+                </li>
+                <li>
+                    <a th:href="@{/admin/employee}">Employee</a>
+                </li>
+                <li>
+                    <a th:href="@{/admin/warehouse}">Warehouse</a>
+                </li>
+                <li>
+                    <a th:href="@{/admin/orders}">Orders</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</nav>
+
+</body>
+
+</html>

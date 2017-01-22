@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+
+<head th:replace="index.html::head (title='Admin - Orders')">
+    <title></title>
+</head>
+
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation"
+     th:replace="/admin/adminNavBar.html::navigation"></nav>
+
+<div class="container">
+    <!--Content-->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading panel-heading-custom h3">
+                    Orders
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <!--Filters-->
+                            <p>Filters</p>
+                            <form th:action="@{/admin/orders/}" method="get" class="form-inline">
+                                <div class="input-group date form_date" data-date=""
+                                     data-date-format="dd-M-yy" data-link-field="dtp_from"
+                                     data-link-format="yyyy-mm-dd">
+                                    <input class="form-control" size="16" type="text" value="" readonly placeholder="From...">
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-remove"></span>
+                                    </span>
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                    <input name="dateFrom" type="hidden" id="dtp_from" value=""/>
+                                </div>
+
+                                <div class="input-group date form_date" data-date=""
+                                     data-date-format="dd-M-yy" data-link-field="dtp_to"
+                                     data-link-format="yyyy-mm-dd">
+                                    <input class="form-control" size="16" type="text" value="" readonly placeholder="To...">
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-remove"></span>
+                                    </span>
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                    <input name="dateTo" type="hidden" id="dtp_to" value=""/>
+                                </div>
+
+                                <div class="form-group">
+                                    <select class="form-control" name="waiterId">
+                                        <option value="" text=""></option>
+                                        <option th:each="waiter : ${waiters}"
+                                                th:value="${waiter.id}"
+                                                th:text="${waiter.firstName}">1
+                                        </option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <select class="form-control" name="tableId">
+                                        <option value="" text=""></option>
+                                        <option th:each="tbl : ${tables}"
+                                                th:value="${tbl.id}"
+                                                th:text="${tbl.description}">1
+                                        </option>
+                                    </select>
+                                </div>
+
+                                <input class="btn btn-success" type="submit" value="Aplay"/>
+
+                            </form>
+                        </div>
+                    </div>
+                    <!--Orders-->
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <table class="table table-default table-hover h4">
+                                <thead class="thead-default">
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Waiter</th>
+                                    <th>Date</th>
+                                    <th>Table</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody class="tbody-default h5">
+                                <tr th:each="ord : ${orders}">
+                                    <td th:text="${ord.id}">Id</td>
+                                    <td th:text="${#strings.capitalize(ord.waiterEmployee.firstName + ', '
+                                    + ord.waiterEmployee.lastName)}">Waiter Name
+                                    </td>
+                                    <td th:text="${#temporals.format(ord.orderDate, 'dd-MMM-YY, hh:mm:ss', 'en')}">
+                                        Date
+                                    </td>
+                                    <td th:text="${ord.board.description}">Table</td>
+                                    <td th:text="${ord.status.getDescription()}">Order status</td>
+                                    <td>
+                                        <a href="#" class="btn btn-primary btn-xs custom " role="button"
+                                           aria-pressed="true"
+                                           th:href="@{/admin/orders/view(id=${ord.id})}">View</a>
+                                    </td>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div th:replace="index.html::generalScripts"></div>
+
+<script th:src="@{/js/bootstrap-datetimepicker.js}" charset="UTF-8"></script>
+
+<script>
+    $('.form_date').datetimepicker({
+        language: 'en',
+        weekStart: 1,
+        todayBtn: 1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        minView: 2,
+        forceParse: 0
+    });
+</script>
+
+</body>
+</html>

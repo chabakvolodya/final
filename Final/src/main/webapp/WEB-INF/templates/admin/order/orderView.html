@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+
+<head th:replace="index.html::head (title='Admin - Order')">
+    <title></title>
+</head>
+
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation"
+     th:replace="/admin/adminNavBar.html::navigation"></nav>
+
+<div class="container">
+    <!--Content-->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading panel-heading-custom h3">
+                    <p th:text="${'View Order'}">View Order</p>
+                </div>
+                <div class="panel-body">
+                    <!--View order-->
+                    <div class="row">
+                        <div class="col-xs-9">
+                            <table class="table table-borderless h4">
+                                <tr>
+                                    <td th:utext="'<b>Order id: </b>' + ${order.id}">Order id</td>
+                                    <td th:utext="'<b>Waiter: </b>' + ${order.waiterEmployee.firstName} + ', ' +
+                                ${order.waiterEmployee.lastName}">Date
+                                    </td>
+                                    <td th:utext="'<b>Status: </b>' + ${order.status.description}"></td>
+                                </tr>
+                                <tr>
+                                    <td th:utext="'<b>Date: </b>' + ${#temporals.format(order.orderDate, 'dd-MM-YYY hh:mm')}">
+                                        Order id
+                                    </td>
+                                    <td th:utext="'<b>Table: </b>' + ${order.board.description}">Table</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <table class="table bordered">
+                                <thead class="thead-default">
+                                <tr>
+                                    <th class="col-xs-1">#</th>
+                                    <th class="col-xs-5">Dish Name</th>
+                                    <th class="col-xs-2">Dish Price</th>
+                                    <!--<th class="col-xs-2">Quantity</th>-->
+                                    <!--<th class="col-xs-2">Total</th>-->
+                                </tr>
+                                </thead>
+                                <tr th:each="dish, row:${order.dishes}">
+                                    <td th:text="${row.count}">1</td>
+                                    <td th:text="${dish.name}">name</td>
+                                    <td th:text="${dish.price}">2.00</td>
+                                    <!--<td>5</td>-->
+                                    <!--<td>10.00</td>-->
+                                </tr>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="index.html::generalScripts"></div>
+
+</body>
+</html>

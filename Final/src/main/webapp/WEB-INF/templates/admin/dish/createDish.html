@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+
+<head th:replace="index.html::head (title='Admin - Create Dish')">
+    <title></title>
+</head>
+
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation"
+     th:replace="/admin/adminNavBar.html::navigation"></nav>
+
+<div class="container">
+    <!--Content-->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading panel-heading-custom h3"
+                     th:text="${'Create Dish'}">
+                    Edit Dish
+                </div>
+                <div class="panel-body">
+                    <!--Create new dish-->
+                    <div class="col-md-6">
+                        <form action="#" th:action="@{'/admin/dish/create'}"
+                              th:object="${newDish}" method="post">
+
+                            <div th:class="${#fields.hasErrors('name')} ?  'form-group alert alert-danger' : 'form-group' ">
+                                <label for="name">Dish Name:</label>
+                                <input type="text" class="form-control" id="name" th:field="*{name}"/>
+                                <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}">error</p>
+                            </div>
+
+                            <div th:class="${#fields.hasErrors('category')} ?  'form-group alert alert-danger' : 'form-group' ">
+                                <label for="category">Select Category:</label>
+                                <select class="form-control" id="category" name="category">
+                                    <option th:each="categ, rowStat : ${dishCategories}" th:value="${categ.id+','+categ.description}"
+                                            th:selected="${rowStat.first}"
+                                            th:text="${categ.description}">1
+                                    </option>
+                                </select>
+                                <p th:if="${#fields.hasErrors('category')}" th:errors="*{category}">error</p>
+                            </div>
+
+                            <div th:class="${#fields.hasErrors('price')} ?  'form-group alert alert-danger' : 'form-group' ">
+                                <label for="price">Dish Price:</label>
+                                <input type="text" class="form-control" id="price" th:field="*{price}"/>
+                                <p th:if="${#fields.hasErrors('price')}" th:text="'Price should be zero or greater'">error</p>
+                            </div>
+
+                            <div th:class="${#fields.hasErrors('weight')} ?  'form-group alert alert-danger' : 'form-group' ">
+                                <label for="weight">Dish Weight (g):</label>
+                                <input type="text" class="form-control" id="weight" th:field="*{weight}"/>
+                                <p th:if="${#fields.hasErrors('weight')}" th:errors="*{weight}">error</p>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="ingredients">Dish Ingredients:</label>
+                                <select multiple th:size="${ingredients.size()}" class="form-control" id="ingredients"
+                                        name="ingredients">
+                                    <option th:each="ingr : ${ingredients}" th:value="${ingr.id}"
+                                            th:selected="${newDish.ingredients != null} ? ${newDish.ingredients.contains(ingr)}"
+                                            th:text="${ingr.name}">1
+                                    </option>
+                                </select>
+                            </div>
+
+                            <input type="hidden" class="form-control" id="deleted" name="deleted" value="false"/>
+                            <p><input class="btn btn-success" type="submit" value="Save"/>
+                                <input class="btn btn-default" type="reset" value="Reset"/></p>
+                        </form>
+                    </div>
+                    <!--Dish photo-->
+                    <div class="col-md-6">
+                        <!--<p><img class="media-object" th:src="@{'/dish/'+ ${editableDish.getId()}+'/photo'}"></p>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div th:replace="index.html::generalScripts"></div>
+
+</body>
+</html>

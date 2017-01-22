@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+
+<head th:replace="index.html::head (title='Contacts')">
+    <title></title>
+</head>
+
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" th:replace="index.html::navigation"></nav>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12 h2 ">
+            <div class="panel panel-primary" th:each="employee : ${employees}">
+                <div class="panel-heading panel-heading-custom">
+                    <span th:text="${employee.getFirstName()}"></span>
+                </div>
+                <div class="panel-body">
+                    <img th:src="${'employee/'+employee.getId()+'/photo'}">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div th:replace="index.html::generalScripts"></div>
+
+</body>
+</html>

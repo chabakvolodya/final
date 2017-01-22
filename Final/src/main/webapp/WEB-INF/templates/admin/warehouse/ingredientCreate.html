@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+
+<head th:replace="index.html::head (title='Admin - Ingredient')">
+    <title></title>
+</head>
+
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation"
+     th:replace="/admin/adminNavBar.html::navigation"></nav>
+
+<div class="container">
+    <!--Content-->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading panel-heading-custom h3">
+                    <p th:text="${'Create Ingredient'}">Create Ingredient</p>
+                    <p th:text="${msg != null} ? ${msg}">Created</p>
+                </div>
+                <div class="panel-body">
+                    <!--Create ingredient-->
+                    <div class="col-md-6">
+                        <form action="#" method="post" th:action="@{'/admin/warehouse/create'}"
+                              th:object="${ingredient}">
+
+                            <div th:class="${#fields.hasErrors('name')} ?  'form-group alert alert-danger' : 'form-group'">
+                                <label for="name">Name:</label>
+                                <input type="text" class="form-control" id="name" th:field="*{name}"/>
+                                <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}">error</p>
+                            </div>
+
+                            <div th:class="${#fields.hasErrors('quantity')} ?  'form-group alert alert-danger' : 'form-group'">
+                                <label for="quantity">Quantity:</label>
+                                <input type="text" class="form-control" id="quantity" th:field="*{quantity}"/>
+                                <p th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}">error</p>
+                            </div>
+
+                            <input type="hidden" class="form-control" id="deleted" name="deleted" value="false"/>
+                            <p><input class="btn btn-success" type="submit" value="Save"/>
+                                <input class="btn btn-default" type="reset" value="Reset"/></p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="index.html::generalScripts"></div>
+
+</body>
+</html>

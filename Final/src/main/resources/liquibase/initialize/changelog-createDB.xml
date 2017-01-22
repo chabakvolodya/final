@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+
+    <!--Create DB structure-->
+
+    <changeSet id="1 position" author="Sasha">
+        <createTable catalogName="public" tableName="position">
+            <column name="id" type="INTEGER" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="position_description" type="VARCHAR(45)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2 employee" author="Sasha">
+        <createTable catalogName="public" tableName="employee">
+            <column name="id" type="INTEGER" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="position_id" type="INTEGER">
+                <constraints nullable="false" foreignKeyName="fk_Employee_Position"
+                             references="position(id)"/>
+            </column>
+            <column name="first_name" type="VARCHAR(45)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_name" type="VARCHAR(45)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="birth_day" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="phone_number" type="VARCHAR(15)"/>
+            <column name="salary" type="CURRENCY" defaultValue="0">
+                <constraints checkConstraint="salary > 0"/>
+            </column>
+            <column name="is_deleted" type="BOOLEAN" defaultValueBoolean="false">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="3 Board" author="Sasha">
+        <createTable catalogName="public" tableName="board">
+            <column name="id" type="INTEGER" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="board_description" type="VARCHAR(45)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="4 OrderStatus" author="Sasha">
+        <createTable catalogName="public" tableName="order_status">
+            <column name="id" type="INTEGER" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="status_description" type="VARCHAR(45)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="5 Order" author="Sasha">
+        <createTable catalogName="public" tableName="order_">
+            <column name="id" type="INTEGER" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="waiter_employee_id" type="INTEGER">
+                <constraints nullable="false" foreignKeyName="fk_Order_Employee"
+                             references="employee(id)"/>
+            </column>
+            <column name="order_date" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="board_id" type="INTEGER">
+                <constraints nullable="false" foreignKeyName="fk_Order_Table"
+                             references="board(id)"/>
+            </column>
+            <column name="order_status_id" type="INTEGER">
+                <constraints nullable="false" foreignKeyName="fk_Order_OrderStatus"
+                             references="order_status(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="6 DishCategory" author="Sasha">
+        <createTable catalogName="public" tableName="dish_category">
+            <column name="id" type="INTEGER" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="category_name" type="VARCHAR(45)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="7 Dish" author="Sasha">
+        <createTable catalogName="public" tableName="dish">
+            <column name="id" type="INTEGER" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="dish_name" type="VARCHAR(45)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="dish_category_id" type="INTEGER">
+                <constraints nullable="false" foreignKeyName="fk_Dish_DishCategory"
+                             references="dish_category(id)"/>
+            </column>
+            <column name="dish_price" type="DECIMAL" defaultValueNumeric="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="dish_weight" type="INTEGER" defaultValueNumeric="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_deleted" type="BOOLEAN" defaultValueBoolean="false">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="8 Ingredient" author="Sasha">
+        <createTable catalogName="public" tableName="ingredient">
+            <column name="id" type="INTEGER" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="ingredient_name" type="VARCHAR(45)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ingredient_quantity" type="INTEGER" defaultValueNumeric="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_deleted" type="BOOLEAN" defaultValueBoolean="false">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="9 DishIngredient" author="Sasha">
+        <createTable catalogName="public" tableName="dish_ingredient">
+            <column name="id" type="INTEGER" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="dish_id" type="INTEGER">
+                <constraints nullable="false" foreignKeyName="fk_DishIngredient_Dish"
+                             references="dish(id)"/>
+            </column>
+            <column name="ingredient_id" type="INTEGER">
+                <constraints nullable="false" foreignKeyName="fk_DishIngredient_Ingredient"
+                             references="ingredient(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="10 OrderDetail" author="Sasha">
+        <createTable catalogName="public" tableName="order_detail">
+            <column name="id" type="INTEGER" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="order_id" type="INTEGER">
+                <constraints nullable="false" foreignKeyName="fk_OrderDetail_Order"
+                             references="order_(id)"/>
+            </column>
+            <column name="dish_id" type="INTEGER">
+                <constraints nullable="false" foreignKeyName="fk_OrderDetail_Dish"
+                             references="dish(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="11 Menu" author="Sasha">
+        <createTable catalogName="public" tableName="menu">
+            <column name="id" type="INTEGER" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="menu_description" type="VARCHAR(45)">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="12 MenuDetail" author="Sasha">
+        <createTable catalogName="public" tableName="menu_detail">
+            <column name="id" type="INTEGER" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="menu_id" type="INTEGER">
+                <constraints nullable="false" foreignKeyName="fk_MenuDetail_Menu"
+                             references="menu(id)"/>
+            </column>
+            <column name="dish_id" type="INTEGER">
+                <constraints nullable="false" foreignKeyName="fk_MenuDetail_Dish"
+                             references="dish(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="13 Create PreparedDish" author="Sasha">
+        <createTable catalogName="public" tableName="prepared_dish">
+            <column name="id" type="INTEGER" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="dish_id" type="INTEGER">
+                <constraints nullable="false" foreignKeyName="fk_PreparedDish_Dish"
+                             references="dish(id)"/>
+            </column>
+            <column name="cook_employee_id" type="INTEGER">
+                <constraints nullable="false" foreignKeyName="fk_PreparedDish_Employee"
+                             references="employee(id)"/>
+            </column>
+            <column name="order_id" type="INTEGER">
+                <constraints nullable="false" foreignKeyName="fk_PreparedDish_Order"
+                             references="order_(id)"/>
+            </column>
+            <column name="prepare_date" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <rollback>
+            <dropTable tableName="prepared_dish"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="add DTYPE column for Hibernate" author="Sasha">
+        <addColumn tableName="employee">
+            <column name="dtype" type="VARCHAR(50)"/>
+        </addColumn>
+        <rollback/>
+    </changeSet>
+
+</databaseChangeLog>

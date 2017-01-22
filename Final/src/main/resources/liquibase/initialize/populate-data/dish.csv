@@ -1,0 +1,16 @@
+id,dish_name,dish_category_id,dish_price,dish_weight,is_deleted
+1,tomato soup,1,2,300,FALSE
+2,french onion soup,1,2.5,300,FALSE
+3,tomato salad,1,2.9,100,FALSE
+4,german sausage and chips,2,6.5,400,FALSE
+5,grilled fish and potatoes,2,6.25,400,FALSE
+6,thai chicken and rice,2,5.95,350,FALSE
+7,mineral water,3,1,500,FALSE
+8,tea,3,0.9,100,FALSE
+9,coffee,3,0.9,50,FALSE
+10,cheese & tomato sandwich,4,3.25,350,FALSE
+11,chicken sandwich,4,3.5,350,FALSE
+12,vegetable omelette,4,3.25,450,FALSE
+13,lemon cake,5,2.25,200,FALSE
+14,ice cream,5,2,200,FALSE
+15,cheese and biscuits,5,2.5,250,FALSE

@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+
+    <!--Populate DB data-->
+
+    <!--<property name="pathToData" value="src/main/resources/liquibase/initialize/populate-data/"/>-->
+    <property name="pathToData" value="liquibase/initialize/populate-data/"/>
+
+    <changeSet id="1 populate position" author="Sasha">
+        <loadData tableName="position"
+                  encoding="UTF-8"
+                  separator=","
+                  file="${pathToData}position.csv">
+            <column name="id" type="NUMERIC"/>
+            <column name="position_description" type="STRING"/>
+        </loadData>
+
+        <rollback>
+            <dropTable tableName="position"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="2 populate employee" author="Sasha">
+        <loadData tableName="employee"
+                  encoding="UTF-8"
+                  separator=","
+                  file="${pathToData}employee.csv">
+
+            <column name="id" type="NUMERIC"/>
+            <column name="position_id" type="NUMERIC"/>
+            <column name="first_name" type="STRING"/>
+            <column name="last_name" type="STRING"/>
+            <column name="birth_day" type="DATE"/>
+            <column name="phone_number" type="STRING"/>
+            <column name="salary" type="NUMERIC"/>
+            <column name="is_deleted" type="BOOLEAN"/>
+            <column name="dtype" type="STRING"/>
+        </loadData>
+
+        <rollback>
+            <dropTable tableName="employee"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="3 populate board" author="Sasha">
+        <loadData tableName="board"
+                  encoding="UTF-8"
+                  separator=","
+                  file="${pathToData}board.csv">
+            <column name="id" type="NUMERIC"/>
+            <column name="board_description" type="STRING"/>
+        </loadData>
+
+        <rollback>
+            <dropTable tableName="board"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="4 populate order_status" author="Sasha">
+        <loadData tableName="order_status"
+                  encoding="UTF-8"
+                  separator=","
+                  file="${pathToData}order_status.csv">
+            <column name="id" type="NUMERIC"/>
+            <column name="status_description" type="STRING"/>
+        </loadData>
+
+        <rollback>
+            <dropTable tableName="board"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="5 populate order" author="Sasha">
+        <loadData tableName="order_"
+                  encoding="UTF-8"
+                  separator=","
+                  file="${pathToData}order.csv">
+            <column name="id" type="NUMERIC"/>
+            <column name="waiter_employee_id" type="NUMERIC"/>
+            <column name="order_date" type="DATETIME"/>
+            <column name="board_id" type="NUMERIC"/>
+            <column name="order_status_id" type="NUMERIC"/>
+        </loadData>
+
+        <rollback>
+            <dropTable tableName="order"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="6 populate dish_category" author="Sasha">
+        <loadData tableName="dish_category"
+                  encoding="UTF-8"
+                  separator=","
+                  file="${pathToData}dish_category.csv">
+            <column name="id" type="NUMERIC"/>
+            <column name="category_name" type="STRING"/>
+        </loadData>
+
+        <rollback>
+            <dropTable tableName="dish_category"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="7 populate dish" author="Sasha">
+        <loadData tableName="dish"
+                  encoding="UTF-8"
+                  separator=","
+                  file="${pathToData}dish.csv">
+            <column name="id" type="NUMERIC"/>
+            <column name="dish_name" type="STRING"/>
+            <column name="dish_category_id" type="NUMERIC"/>
+            <column name="dish_price" type="NUMERIC"/>
+            <column name="dish_weight" type="NUMERIC"/>
+            <column name="is_deleted" type="BOOLEAN"/>
+        </loadData>
+
+        <rollback>
+            <dropTable tableName="dish"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="8 populate ingredient" author="Sasha">
+        <loadData tableName="ingredient"
+                  encoding="UTF-8"
+                  separator=","
+                  file="${pathToData}ingredient.csv">
+            <column name="id" type="NUMERIC"/>
+            <column name="ingredient_name" type="STRING"/>
+            <column name="ingredient_quantity" type="NUMERIC"/>
+            <column name="is_deleted" type="BOOLEAN"/>
+        </loadData>
+
+        <rollback>
+            <dropTable tableName="ingredient"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="9 populate dish_ingredient" author="Sasha">
+        <loadData tableName="dish_ingredient"
+                  encoding="UTF-8"
+                  separator=","
+                  file="${pathToData}dish_ingredient.csv">
+            <column name="id" type="NUMERIC"/>
+            <column name="dish_id" type="NUMERIC"/>
+            <column name="ingredient_id" type="NUMERIC"/>
+        </loadData>
+
+        <rollback>
+            <dropTable tableName="dish_ingredient"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="10 populate order_detail" author="Sasha">
+        <loadData tableName="order_detail"
+                  encoding="UTF-8"
+                  separator=","
+                  file="${pathToData}order_detail.csv">
+            <column name="id" type="NUMERIC"/>
+            <column name="order_id" type="NUMERIC"/>
+            <column name="dish_id" type="NUMERIC"/>
+        </loadData>
+
+        <rollback>
+            <dropTable tableName="order_detail"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="11 populate menu" author="Sasha">
+        <loadData tableName="menu"
+                  encoding="UTF-8"
+                  separator=","
+                  file="${pathToData}menu.csv">
+            <column name="id" type="NUMERIC"/>
+            <column name="menu_description" type="STRING"/>
+        </loadData>
+
+        <rollback>
+            <dropTable tableName="menu"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="12 populate menu_detail" author="Sasha">
+        <loadData tableName="menu_detail"
+                  encoding="UTF-8"
+                  separator=","
+                  file="${pathToData}menu_detail.csv">
+            <column name="id" type="NUMERIC"/>
+            <column name="menu_id" type="NUMERIC"/>
+            <column name="dish_id" type="NUMERIC"/>
+        </loadData>
+
+        <rollback>
+            <dropTable tableName="menu_detail"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="13 populate prepared_dish" author="Sasha">
+        <loadData tableName="prepared_dish"
+                  encoding="UTF-8"
+                  separator=","
+                  file="${pathToData}prepared_dish.csv">
+            <column name="id" type="NUMERIC"/>
+            <column name="dish_id" type="NUMERIC"/>
+            <column name="cook_employee_id" type="NUMERIC"/>
+            <column name="order_id" type="NUMERIC"/>
+            <column name="prepare_date" type="DATE"/>
+        </loadData>
+
+        <rollback>
+            <dropTable tableName="prepared_dish"/>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>

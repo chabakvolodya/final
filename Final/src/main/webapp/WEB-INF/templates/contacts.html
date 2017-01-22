@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+
+<head th:replace="index.html::head (title='Contacts')">
+    <title></title>
+</head>
+
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" th:replace="index.html::navigation"></nav>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12 h2 ">
+            <div class="panel panel-primary">
+                <div class="panel-heading panel-heading-custom">
+                    Contacts
+                </div>
+                <div class="panel-body">
+                    <ul style="list-style-type:disc">
+                        <li>Spasska Street, 12</li>
+                        <li>mail@mai.com</li>
+                        <li>+38-050-11-11-111</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="panel panel-primary">
+                <div class="panel-heading panel-heading-custom">
+                    Location
+                </div>
+                <div class="panel-body">
+                    <img th:src="@{/img/location.jpg}">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div th:replace="index.html::generalScripts"></div>
+
+</body>
+</html>
